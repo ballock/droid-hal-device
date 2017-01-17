@@ -189,8 +189,13 @@ extract_headers_to hardware \
     hardware/libhardware/include/hardware
 
 extract_headers_to hardware_legacy \
+    hardware/libhardware_legacy/include/hardware_legacy/wifi.h \
     hardware/libhardware_legacy/include/hardware_legacy/vibrator.h \
     hardware/libhardware_legacy/include/hardware_legacy/audio_policy_conf.h
+
+check_header_exists system/media/camera/include/system/camera_vendor_tags.h && \
+    extract_headers_to system \
+        system/media/camera/include/system/camera_vendor_tags.h
 
 extract_headers_to cutils \
     system/core/include/cutils
@@ -208,6 +213,9 @@ check_header_exists system/media/audio/include/system/audio.h && \
 extract_headers_to android \
     system/core/include/android
 
+extract_headers_to system \
+    system/media/audio/include/system
+
 check_header_exists bionic/libc/kernel/common/linux/sync.h && \
     extract_headers_to linux \
         bionic/libc/kernel/common/linux/sync.h \
@@ -217,16 +225,18 @@ check_header_exists system/core/include/sync/sync.h && \
     extract_headers_to sync \
         system/core/include/sync
 
-check_header_exists bionic/libc/kernel/uapi/linux/sync.h && \
+check_header_exists bionic/libc/kernel && \
     extract_headers_to linux \
         bionic/libc/kernel/uapi/linux/sync.h \
         bionic/libc/kernel/uapi/linux/sw_sync.h
 
-check_header_exists bionic/libc/include/android/dlext.h && \
+check_header_exists bionic/libc/include/android && \
     extract_headers_to android \
-        bionic/libc/include/android/dlext.h \
-        bionic/libc/include/android/api-level.h \
-        bionic/libc/include/android/set_abort_message.h
+        bionic/libc/include/android
+
+check_header_exists bionic/libc/private && \
+    extract_headers_to private \
+        bionic/libc/private
 
 check_header_exists system/core/libsync/include/sync/sync.h && \
     extract_headers_to sync \
